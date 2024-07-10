@@ -8,6 +8,7 @@ datasource db {
 }
 
 // npx prisma migrate dev -> Atualiza o banco
+//.env --> DATABASE_URL="file:./dev.db"
 
 model Trip {
   id           String   @id @default(uuid())
