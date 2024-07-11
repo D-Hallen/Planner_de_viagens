@@ -3,6 +3,7 @@ import { ZodTypeProvider } from "fastify-type-provider-zod"; //integração do Z
 import { z } from 'zod'; //biblioteca do ZOD para validação de dados
 import {prisma} from '../lib/prisma'
 import {dayjs} from "../lib/dayjs";
+import { clientError } from "../errors/client-error";
 
 export async function getActivities(app: FastifyInstance) {
     app.withTypeProvider<ZodTypeProvider>().get(
@@ -28,7 +29,7 @@ export async function getActivities(app: FastifyInstance) {
             }
         })
         if (!trip){
-            throw new Error ('Trip not found.')
+            throw new clientError ('Trip not found.')
         }
 
         const differenceBetweenTripDays = dayjs(trip.endDate).diff(trip.startDate, 'days') //quantidade de dias da viagem

@@ -5,6 +5,8 @@ import { prisma } from "../lib/prisma";
 import {dayjs} from "../lib/dayjs";
 import { getMailClient } from "../lib/mail";
 import nodemailer from 'nodemailer'
+import { clientError } from "../errors/client-error";
+import { env } from "../env";
 
 export async function confirmTrip(app: FastifyInstance) {
 
@@ -31,11 +33,11 @@ export async function confirmTrip(app: FastifyInstance) {
         })
 
         if (!trip){
-            throw new Error ('Trip not found.')
+            throw new clientError ('Trip not found.')
         }
 
         if (trip.isConfirmed){
-            return reply.redirect(`http://localhost:3000/trips/${tripId}`)
+            return reply.redirect(`${env.FRONT_URL}/trips/${tripId}`)
         }
 
         await prisma.trip.update({
@@ -54,7 +56,7 @@ export async function confirmTrip(app: FastifyInstance) {
         const mail = await getMailClient()
         
         await Promise.all(trip.participants.map(async (participant) => {
-            const confirmURL = `http://localhost:3333/participants/${participant.id}/confirm`
+            const confirmURL = `${env.API_BASE_URL}/participants/${participant.id}/confirm`
             const message = await mail.sendMail({
                 from: {
                     name: 'Equipe Plann.er',
@@ -101,6 +103,6 @@ export async function confirmTrip(app: FastifyInstance) {
             console.log('E-MAIL:', nodemailer.getTestMessageUrl(message))
         }))
 
-        return reply.redirect(`http://localhost:3000/trips/${tripId}`)
+        return reply.redirect(`${env.FRONT_URL}/trips/${tripId}`)
     })
 }
