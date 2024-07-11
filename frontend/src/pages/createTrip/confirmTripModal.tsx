@@ -45,7 +45,7 @@ export function ConfirmTripModal ({
           </div>
 
 
-          <button type='button' onClick={createTrip} className='bg-yellow-400 text-stone-950 rounded-lg px-5 h-11 font-medium flex items-center gap-2 hover:bg-yellow-500 w-full justify-center'>
+          <button type='button' className='bg-yellow-400 text-stone-950 rounded-lg px-5 h-11 font-medium flex items-center gap-2 hover:bg-yellow-500 w-full justify-center'>
           Confirmar criação da viagem
         </button>
         </form>
