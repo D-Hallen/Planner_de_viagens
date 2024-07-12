@@ -20,7 +20,7 @@ import { env } from './env';
 const app = fastify()
 
 app.register(cors, {
-  origin: `${env.FRONT_URL}`,
+  origin: `*`,
 })
 
 //Configurações

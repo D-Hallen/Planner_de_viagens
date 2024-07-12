@@ -1,14 +1,24 @@
 import { Mail, UserRound, X } from "lucide-react";
 import { FormEvent } from "react";
+import { Button } from "../../components/button";
+import { DateRange } from "react-day-picker";
 
 interface ConfirmTripModalProps {
     closeConfirmSetModal: () => void,
-    createTrip: (event: FormEvent<HTMLFormElement>) => void
+    createTrip: (event: FormEvent<HTMLFormElement>) => void,
+    setOwnerName: (name: string) => void,
+    setOwnerEmail : (email: string) => void,
+    destination: string,
+    eventDates: DateRange | undefined
 }
 
 export function ConfirmTripModal ({
     closeConfirmSetModal,
-    createTrip
+    createTrip,
+    setOwnerEmail,
+    setOwnerName,
+    destination,
+    eventDates
 } : ConfirmTripModalProps){
     return(
         <div className='fixed inset-0 bg-black/60 flex items-center justify-center'>
@@ -21,7 +31,7 @@ export function ConfirmTripModal ({
               </button>
           </div>
           <p className='text-sm text-stone-400 mt-2'>
-            Para confirmar a criação da viagem para <span className='font-semibold text-stone-100'>$Florianópolis{}</span> nas datas de <span className='font-semibold text-stone-100'>${}</span> preencha seus dados abaixo:
+            Para confirmar a criação da viagem para <span className='font-semibold text-stone-100'>{destination}</span> nas datas de <span className='font-semibold text-stone-100'>${}</span> preencha seus dados abaixo:
           </p>
         </div>
 
@@ -32,6 +42,7 @@ export function ConfirmTripModal ({
             <input 
               type="name" 
               name='text' 
+              onChange={event => setOwnerName(event.target.value)}
               placeholder='Seu nome completo' 
               className='bg-transparent text-lg placeholder-stone-400 outline-none flex-1'  />
           </div>
@@ -39,15 +50,14 @@ export function ConfirmTripModal ({
             <Mail className='size-5 text-stone-500'/>
             <input 
               type="email" 
-              name='email' 
+              name='email'
+              onChange={event => setOwnerEmail(event.target.value)}
               placeholder='Seu e-mail pessoal' 
               className='bg-transparent text-lg placeholder-stone-400 outline-none flex-1'  />
           </div>
-
-
-          <button type='button' className='bg-yellow-400 text-stone-950 rounded-lg px-5 h-11 font-medium flex items-center gap-2 hover:bg-yellow-500 w-full justify-center'>
-          Confirmar criação da viagem
-        </button>
+          <Button type="submit" size="full">
+            Confirmar criação da viagem
+          </Button>
         </form>
       </div>
     </div>
