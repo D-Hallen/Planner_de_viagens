@@ -1,5 +1,5 @@
 # Plann.er-NLW
-Projeto de um planner desenvolvido junto ao programa NLW da Rocketseat
+Projeto de um planner desenvolvido junto ao programa NLW da Rocketseat para planejamento de viagens.
 
 ## Ferramentas Usadas
 - NodeJs
